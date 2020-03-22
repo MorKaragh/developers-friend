@@ -40,6 +40,5 @@ public class MainTreeView extends AnchorPane {
                 return ApplicationProperties.getDouble("screen.height") - buttonLayout.getHeight();
             }
         });
-
     }
 }

@@ -35,4 +35,5 @@ public class ApplicationProperties {
     public static String get(String s) {
         return getInstance().prop.getProperty(s);
     }
+
 }

@@ -28,7 +28,6 @@ public class TreeComponent extends TreeView<MainTreeItem> {
         }
         setRoot(rootItem);
         getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
     }
 
     private TreeItem<MainTreeItem> getItem(MainTreeItem item) {
@@ -39,4 +38,5 @@ public class TreeComponent extends TreeView<MainTreeItem> {
         getSelectionModel().selectedItemProperty().addListener(listener);
         return this;
     }
+
 }
