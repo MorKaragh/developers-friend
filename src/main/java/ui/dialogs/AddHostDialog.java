@@ -67,11 +67,11 @@ public class AddHostDialog extends BorderPane {
     private boolean validate() {
         boolean isValid = true;
         if (StringUtils.isBlank(hostNameFld.getText())) {
-            hostNameFld.setStyle("-fx-text-box-border: red ; -fx-focus-color: red ;");
+            hostNameFld.setStyle(Styles.textFieldBorder("red"));
             isValid = false;
         }
         if (StringUtils.isBlank(usernameFld.getText())) {
-            usernameFld.setStyle("-fx-text-box-border: red ; -fx-focus-color: red ;");
+            usernameFld.setStyle(Styles.textFieldBorder("red"));
             isValid = false;
         }
         return isValid;
@@ -124,6 +124,15 @@ public class AddHostDialog extends BorderPane {
     public AddHostDialog setListener(Listener listener) {
         this.listener = listener;
         return this;
+    }
+
+    public void mountData(Host host, UserOnHost userOnHost) {
+        if (host != null) {
+            hostNameFld.setText(host.getHostname());
+        }
+        if (userOnHost != null) {
+            usernameFld.setText(userOnHost.getUsername());
+        }
     }
 
     public interface Listener {

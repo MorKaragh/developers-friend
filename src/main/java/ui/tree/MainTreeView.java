@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import model.Host;
 import model.UserOnHost;
 import ui.dialogs.AddHostDialog;
+import ui.utils.Styles;
 
 public class MainTreeView extends VBox {
 
@@ -30,20 +31,9 @@ public class MainTreeView extends VBox {
 
     private TreeComponent createTree() {
         TreeComponent tree = new TreeComponent(new HostsYamlDao().loadHostsConfig());
-        tree.setListener((observableValue, mainTreeItemTreeItem, treeItem) -> {
-            if (treeItem == mainTreeItemTreeItem) {
-                return;
-            }
-            UserOnHost selectedUser = null;
-            Host selectedHost = null;
-            if (treeItem.getValue() instanceof UserOnHost) {
-                selectedUser = (UserOnHost) treeItem.getValue();
-                selectedHost = (Host) treeItem.getParent().getValue();
-            } else if (treeItem.getValue() instanceof Host){
-                selectedHost = (Host) treeItem.getValue();
-            }
+        tree.setListener(selected -> {
             if (listener != null) {
-                listener.onSelect(selectedHost, selectedUser);
+                listener.onSelect(selected.getHost(), selected.getUserOnHost());
             }
         });
         return tree;
@@ -68,18 +58,19 @@ public class MainTreeView extends VBox {
     private HBox createButtonLayout() {
         HBox buttonLayout = new HBox();
         buttonLayout.setPadding(new Insets(15, 12, 15, 12));
-        buttonLayout.setStyle("-fx-background-color: #336699;");
+        buttonLayout.setStyle(Styles.backgroundColor("#336699"));
         Button addButton = createAddButton();
         buttonLayout.getChildren().addAll(addButton);
         return buttonLayout;
     }
 
     private Button createAddButton() {
-        Button addButton = new Button("add");
+        Button addButton = new Button("add host/user");
         addButton.setTextFill(Color.BLUE);
         addButton.setOnAction(actionEvent -> {
             Stage stage = new Stage();
             AddHostDialog dialog = new AddHostDialog();
+            dialog.mountData(treeComponent.getSelected().getHost(), treeComponent.getSelected().getUserOnHost());
             dialog.setListener(new AddHostDialog.Listener() {
                 @Override
                 public void onSave(Host host) {

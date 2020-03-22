@@ -1,7 +1,6 @@
 package config;
 
-import engine.dao.HostsYamlDao;
-import model.HostsList;
+import engine.dao.SshPropertiesDao;
 import model.SshProperties;
 
 public class SshConfiguration {

@@ -1,4 +1,4 @@
-package config;
+package engine.dao;
 
 import model.SshProperties;
 
