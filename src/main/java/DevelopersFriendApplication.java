@@ -1,4 +1,5 @@
 import config.ApplicationProperties;
+import engine.ApplicationEngine;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -11,7 +12,7 @@ public class DevelopersFriendApplication extends Application {
     }
 
     public void start(Stage stage) {
-        Scene scene = new Scene(new MainView(), ApplicationProperties.getDouble("screen.width"), ApplicationProperties.getDouble("screen.height"));
+        Scene scene = new Scene(new MainView(new ApplicationEngine()), ApplicationProperties.getDouble("screen.width"), ApplicationProperties.getDouble("screen.height"));
         stage.setScene(scene);
         stage.show();
     }

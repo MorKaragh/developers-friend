@@ -1,9 +1,9 @@
-package dao;
+package engine.dao;
 
-import config.local.LocalHostsConfig;
+import model.HostsList;
 import org.junit.jupiter.api.Test;
-import model.RemoteHost;
-import model.RemoteUser;
+import model.Host;
+import model.UserOnHost;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,42 +14,42 @@ class HostsYamlDaoTest {
 
         HostsYamlDao hostsYamlDao = new HostsYamlDao();
 
-        RemoteHost host = new RemoteHost();
+        Host host = new Host();
         host.setHostname("localhost");
         host.setKnown(false);
-        RemoteUser user = new RemoteUser();
+        UserOnHost user = new UserOnHost();
         user.setUsername("username");
-        RemoteUser user2 = new RemoteUser();
+        UserOnHost user2 = new UserOnHost();
         user2.setUsername("another username");
-        host.getRemoteUsers().add(user);
-        host.getRemoteUsers().add(user2);
+        host.getUserOnHosts().add(user);
+        host.getUserOnHosts().add(user2);
 
-        RemoteHost host1 = new RemoteHost();
+        Host host1 = new Host();
         host1.setHostname("localhost1");
         host1.setKnown(false);
-        RemoteUser user3 = new RemoteUser();
+        UserOnHost user3 = new UserOnHost();
         user3.setUsername("username");
-        RemoteUser user4 = new RemoteUser();
+        UserOnHost user4 = new UserOnHost();
         user4.setUsername("another username");
-        host1.getRemoteUsers().add(user3);
-        host1.getRemoteUsers().add(user4);
+        host1.getUserOnHosts().add(user3);
+        host1.getUserOnHosts().add(user4);
 
-        LocalHostsConfig config = new LocalHostsConfig();
+        HostsList config = new HostsList();
         config.getHosts().add(host);
         config.getHosts().add(host1);
 
         hostsYamlDao.saveLocalHostConfig(config);
 
         HostsYamlDao dao = new HostsYamlDao();
-        LocalHostsConfig loadedConfig = dao.loadHostsConfig();
+        HostsList loadedConfig = dao.loadHostsConfig();
 
         assertEquals(
                 config.getHosts().size(),
                 loadedConfig.getHosts().size());
 
         assertEquals(
-                config.getHosts().get(0).getRemoteUsers().size(),
-                loadedConfig.getHosts().get(0).getRemoteUsers().size());
+                config.getHosts().get(0).getUserOnHosts().size(),
+                loadedConfig.getHosts().get(0).getUserOnHosts().size());
     }
 
 }

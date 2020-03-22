@@ -1,33 +1,36 @@
 package ui.tree;
 
-import config.local.LocalHostsConfig;
+import model.HostsList;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import model.MainTreeItem;
-import model.RemoteHost;
-import model.RemoteUser;
+import model.Host;
+import model.UserOnHost;
 
 public class TreeComponent extends TreeView<MainTreeItem> {
 
-    public TreeComponent(LocalHostsConfig localHostsConfig) {
-        buildTree(localHostsConfig);
+    public TreeComponent(HostsList hostsList) {
+        buildTree(hostsList);
     }
 
-    private void buildTree(LocalHostsConfig localHostsConfig) {
-        TreeItem<MainTreeItem> rootItem = getItem(new RemoteHost());
-        for (RemoteHost host : localHostsConfig.getHosts()) {
+    private void buildTree(HostsList hostsList) {
+        fillTree(hostsList);
+        getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+    }
+
+    void fillTree(HostsList hostsList) {
+        TreeItem<MainTreeItem> rootItem = getItem(new Host());
+        for (Host host : hostsList.getHosts()) {
             TreeItem<MainTreeItem> hostTreeItem = getItem(host);
             rootItem.getChildren().add(hostTreeItem);
-            for (RemoteUser user : host.getRemoteUsers()) {
+            for (UserOnHost user : host.getUserOnHosts()) {
                 TreeItem<MainTreeItem> userItem = getItem(user);
                 hostTreeItem.getChildren().add(userItem);
             }
         }
         setRoot(rootItem);
-        getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
     private TreeItem<MainTreeItem> getItem(MainTreeItem item) {

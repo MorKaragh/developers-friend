@@ -1,6 +1,6 @@
-package config.local;
+package model;
 
-public class LocalSshConfig {
+public class SshProperties {
 
     private String knownHostsFile;
     private String pubKeyFile;
@@ -26,7 +26,7 @@ public class LocalSshConfig {
         return privKeyFile;
     }
 
-    public LocalSshConfig setPrivKeyFile(String privKeyFile) {
+    public SshProperties setPrivKeyFile(String privKeyFile) {
         this.privKeyFile = privKeyFile;
         return this;
     }

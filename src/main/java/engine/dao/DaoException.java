@@ -1,8 +1,6 @@
-package dao;
+package engine.dao;
 
 import utils.RuntimeExceptionWithLogging;
-
-import java.io.IOException;
 
 public class DaoException extends RuntimeExceptionWithLogging {
 

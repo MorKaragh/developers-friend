@@ -1,16 +1,18 @@
 package model;
 
-public class RemoteUser implements MainTreeItem{
+import java.io.Serializable;
+
+public class UserOnHost implements MainTreeItem, Serializable {
 
     private String username;
-
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public UserOnHost setUsername(String username) {
         this.username = username;
+        return this;
     }
 
     @Override

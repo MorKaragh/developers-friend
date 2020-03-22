@@ -1,4 +1,4 @@
-package ssh;
+package engine.ssh;
 
 import utils.RuntimeExceptionWithLogging;
 

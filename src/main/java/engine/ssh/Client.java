@@ -1,27 +1,27 @@
-package ssh;
+package engine.ssh;
 
 import com.jcraft.jsch.*;
-import config.local.LocalSshConfig;
-import model.RemoteHost;
-import model.RemoteUser;
+import model.SshProperties;
+import model.Host;
+import model.UserOnHost;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 public class Client {
 
-    private LocalSshConfig sshConfig;
+    private SshProperties sshConfig;
 
-    public Client(LocalSshConfig sshConfig) {
+    public Client(SshProperties sshConfig) {
         this.sshConfig = sshConfig;
     }
 
-    public String executeString(RemoteHost remoteHost, RemoteUser user, String command) {
+    public String executeString(Host host, UserOnHost user, String command) {
         JSch jsch = new JSch();
         try {
             jsch.setKnownHosts(sshConfig.getKnownHostsFile());
             jsch.addIdentity(sshConfig.getPrivKeyFile());
-            Session session = jsch.getSession(user.getUsername(), remoteHost.getHostname(), 22);
+            Session session = jsch.getSession(user.getUsername(), host.getHostname(), 22);
 
             UserInfo ui = new UserInfo() {
                 @Override

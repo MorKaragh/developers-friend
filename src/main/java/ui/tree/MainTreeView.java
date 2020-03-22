@@ -1,31 +1,57 @@
 package ui.tree;
 
 import config.ApplicationProperties;
-import dao.HostsYamlDao;
+import config.HostsConfiguration;
+import engine.dao.HostsYamlDao;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import ui.MainView;
+import model.Host;
+import model.UserOnHost;
 import ui.dialogs.AddHostDialog;
 
-public class MainTreeView extends AnchorPane {
+public class MainTreeView extends VBox {
 
     private final HBox buttonLayout;
     private final TreeComponent treeComponent;
+    private Listener listener;
 
     public MainTreeView() {
-        treeComponent = new TreeComponent(new HostsYamlDao().loadHostsConfig());
+        treeComponent = createTree();
         buttonLayout = createButtonLayout();
+        buildLayout();
+    }
+
+    private TreeComponent createTree() {
+        TreeComponent tree = new TreeComponent(new HostsYamlDao().loadHostsConfig());
+        tree.setListener((observableValue, mainTreeItemTreeItem, treeItem) -> {
+            if (treeItem == mainTreeItemTreeItem) {
+                return;
+            }
+            UserOnHost selectedUser = null;
+            Host selectedHost = null;
+            if (treeItem.getValue() instanceof UserOnHost) {
+                selectedUser = (UserOnHost) treeItem.getValue();
+                selectedHost = (Host) treeItem.getParent().getValue();
+            } else if (treeItem.getValue() instanceof Host){
+                selectedHost = (Host) treeItem.getValue();
+            }
+            if (listener != null) {
+                listener.onSelect(selectedHost, selectedUser);
+            }
+        });
+        return tree;
+    }
+
+    private void buildLayout() {
         getChildren().addAll(treeComponent, buttonLayout);
-        setBottomAnchor(buttonLayout,0D);
-        setTopAnchor(treeComponent, 0D);
+        setVgrow(treeComponent, Priority.ALWAYS);
         setSizes();
     }
 
@@ -51,17 +77,42 @@ public class MainTreeView extends AnchorPane {
     private Button createAddButton() {
         Button addButton = new Button("add");
         addButton.setTextFill(Color.BLUE);
-        addButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                Stage stage = new Stage();
-                AddHostDialog root = new AddHostDialog();
-                Scene scene = new Scene(root, ApplicationProperties.getDouble("screen.width")/2, ApplicationProperties.getDouble("screen.height")/2);
-                stage.setScene(scene);
-                stage.show();
-            }
+        addButton.setOnAction(actionEvent -> {
+            Stage stage = new Stage();
+            AddHostDialog dialog = new AddHostDialog();
+            dialog.setListener(new AddHostDialog.Listener() {
+                @Override
+                public void onSave(Host host) {
+                    if (listener != null) {
+                        listener.saveHost(host);
+                        stage.close();
+                    }
+                }
+
+                @Override
+                public void onCLose() {
+                    stage.close();
+                }
+            });
+            Scene scene = new Scene(dialog);
+            stage.setScene(scene);
+            stage.show();
         });
 
         return addButton;
+    }
+
+    public MainTreeView setListener(Listener listener) {
+        this.listener = listener;
+        return this;
+    }
+
+    public void refresh() {
+        treeComponent.fillTree(HostsConfiguration.getCurrent().getHosts());
+    }
+
+    public interface Listener {
+        void saveHost(Host host);
+        void onSelect(Host host, UserOnHost userOnHost);
     }
 }
