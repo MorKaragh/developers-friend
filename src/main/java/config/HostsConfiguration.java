@@ -23,6 +23,12 @@ public class HostsConfiguration {
         return instance;
     }
 
+    public void reload() {
+        synchronized (HostsConfiguration.class) {
+            instance = new HostsConfiguration(new HostsYamlDao());
+        }
+    }
+
     public HostsList getHosts() {
         return hosts;
     }
