@@ -8,8 +8,7 @@ import ui.tree.TreeComponent;
 public class MainView extends BorderPane {
 
     public MainView() {
-
-        setLeft(new MainTreeView());
-
+        MainTreeView value = new MainTreeView();
+        setLeft(value);
     }
 }

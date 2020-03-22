@@ -28,16 +28,6 @@ public class TreeComponent extends TreeView<MainTreeItem> {
         }
         setRoot(rootItem);
         getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TreeItem<MainTreeItem>>() {
-            @Override
-            public void changed(ObservableValue<? extends TreeItem<MainTreeItem>> observableValue, TreeItem<MainTreeItem> mainTreeItemTreeItem, TreeItem<MainTreeItem> t1) {
-                System.out.println(t1.getValue());
-                System.out.println(t1.getValue() instanceof RemoteHost);
-                System.out.println(observableValue);
-                System.out.println("select!");
-            }
-        });
-
 
     }
 
@@ -45,4 +35,8 @@ public class TreeComponent extends TreeView<MainTreeItem> {
         return new TreeItem<>(item);
     }
 
+    public TreeComponent setListener(ChangeListener<TreeItem<MainTreeItem>> listener) {
+        getSelectionModel().selectedItemProperty().addListener(listener);
+        return this;
+    }
 }

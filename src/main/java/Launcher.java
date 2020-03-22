@@ -4,7 +4,7 @@ import java.util.Properties;
 
 public class Launcher {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         DevelopersFriend.main(args);
     }
 }

@@ -20,4 +20,8 @@ public class RemoteUser implements MainTreeItem{
         }
         return "- not specified -";
     }
+
+    public String getPassword() {
+        return null;
+    }
 }

@@ -15,10 +15,6 @@ import java.util.List;
 
 public class RemotesDao {
 
-    public List<RemoteHost> loadStoredHosts(){
-        return new ArrayList<>();
-    }
-
     public LocalHostsConfig loadHostsConfig() {
         Constructor constructor = new Constructor(LocalHostsConfig.class);
         TypeDescription definition = new TypeDescription(LocalHostsConfig.class);
@@ -27,7 +23,8 @@ public class RemotesDao {
         Yaml yaml = new Yaml(constructor);
         yaml.setBeanAccess(BeanAccess.FIELD);
         try {
-            return yaml.load(new FileReader(ApplicationProperties.getInstance().get("config.hosts.file")));
+            LocalHostsConfig load = yaml.load(new FileReader(ApplicationProperties.getInstance().get("config.hosts.file")));
+            return load != null ? load : new LocalHostsConfig();
         } catch (FileNotFoundException e) {
             initStorageFile();
             return new LocalHostsConfig();

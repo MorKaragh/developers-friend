@@ -28,7 +28,11 @@ public class ApplicationProperties {
         return instance;
     }
 
-    public String get(String s) {
-        return prop.getProperty(s);
+    public static double getDouble(String s) {
+        return Double.parseDouble(get(s));
+    }
+
+    public static String get(String s) {
+        return getInstance().prop.getProperty(s);
     }
 }

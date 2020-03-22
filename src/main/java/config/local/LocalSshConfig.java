@@ -4,6 +4,7 @@ public class LocalSshConfig {
 
     private String knownHostsFile;
     private String pubKeyFile;
+    private String privKeyFile;
 
     public String getKnownHostsFile() {
         return knownHostsFile;
@@ -19,5 +20,14 @@ public class LocalSshConfig {
 
     public void setPubKeyFile(String pubKeyFile) {
         this.pubKeyFile = pubKeyFile;
+    }
+
+    public String getPrivKeyFile() {
+        return privKeyFile;
+    }
+
+    public LocalSshConfig setPrivKeyFile(String privKeyFile) {
+        this.privKeyFile = privKeyFile;
+        return this;
     }
 }
