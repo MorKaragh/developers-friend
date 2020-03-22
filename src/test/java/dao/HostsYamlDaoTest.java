@@ -7,12 +7,12 @@ import model.RemoteUser;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RemotesDaoTest {
+class HostsYamlDaoTest {
 
     @Test
     public void testSaveLoad() {
 
-        RemotesDao remotesDao = new RemotesDao();
+        HostsYamlDao hostsYamlDao = new HostsYamlDao();
 
         RemoteHost host = new RemoteHost();
         host.setHostname("localhost");
@@ -38,9 +38,9 @@ class RemotesDaoTest {
         config.getHosts().add(host);
         config.getHosts().add(host1);
 
-        remotesDao.saveLocalHostConfig(config);
+        hostsYamlDao.saveLocalHostConfig(config);
 
-        RemotesDao dao = new RemotesDao();
+        HostsYamlDao dao = new HostsYamlDao();
         LocalHostsConfig loadedConfig = dao.loadHostsConfig();
 
         assertEquals(

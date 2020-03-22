@@ -4,9 +4,9 @@ import utils.RuntimeExceptionWithLogging;
 
 import java.io.IOException;
 
-public class DaoFailed extends RuntimeExceptionWithLogging {
+public class DaoException extends RuntimeExceptionWithLogging {
 
-    public DaoFailed(Throwable cause) {
+    public DaoException(Throwable cause) {
         super(cause);
     }
 

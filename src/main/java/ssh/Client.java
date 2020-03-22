@@ -100,7 +100,7 @@ public class Client {
 
             return stringBuilder.toString();
         } catch (JSchException | IOException e) {
-            throw new FailedExecution("execution failed", e);
+            throw new SshExecutionException("execution failed", e);
         }
     }
 

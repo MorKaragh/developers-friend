@@ -1,14 +1,15 @@
-package ui;
+package ui.dialogs;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class RemoteConfigView extends AnchorPane {
+public class AddHostDialog extends AnchorPane {
 
-    public RemoteConfigView() {
+    public AddHostDialog() {
         VBox form = new VBox();
 
         TextField hostNameFld = new TextField();
@@ -20,7 +21,10 @@ public class RemoteConfigView extends AnchorPane {
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("password");
 
-        form.getChildren().addAll(hostNameFld, usernameFld, passwordField);
+        Button saveButton = new Button("save");
+        Button closeButton = new Button("close");
+
+        form.getChildren().addAll(hostNameFld, usernameFld, passwordField, saveButton, closeButton);
 
         form.setSpacing(5D);
 

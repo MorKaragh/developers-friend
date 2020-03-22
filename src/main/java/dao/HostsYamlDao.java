@@ -13,7 +13,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RemotesDao {
+public class HostsYamlDao {
 
 
     public List<RemoteHost> loadStoredHosts(){
@@ -43,7 +43,7 @@ public class RemotesDao {
             String dump = yaml.dumpAsMap(localHostsConfig);
             fileWriter.write(dump);
         } catch (IOException e) {
-            throw new DaoFailed(e);
+            throw new DaoException(e);
         }
     }
 

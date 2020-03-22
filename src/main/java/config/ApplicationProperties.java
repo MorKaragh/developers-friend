@@ -17,7 +17,7 @@ public class ApplicationProperties {
                         .getResource("application.properties")).getFile())){
             prop.load(fileInputStream);
         } catch (Exception e) {
-            throw new InitializationException("unable to load .properties file");
+            throw new InitializationException("unable to load .properties file", e);
         }
     }
 
