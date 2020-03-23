@@ -58,7 +58,7 @@ public class MainTreeView extends VBox {
     private HBox createButtonLayout() {
         HBox buttonLayout = new HBox();
         buttonLayout.setPadding(new Insets(15, 12, 15, 12));
-        buttonLayout.setStyle(Styles.backgroundColor("#336699"));
+        buttonLayout.setStyle(Styles.backgroundColor("#000080"));
         Button addButton = createAddButton();
         buttonLayout.getChildren().addAll(addButton);
         return buttonLayout;

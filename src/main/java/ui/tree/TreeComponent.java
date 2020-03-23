@@ -19,7 +19,8 @@ public class TreeComponent extends TreeView<MainTreeItem> {
     }
 
     public Selected getSelected() {
-        return extractSelected(getSelectionModel().getSelectedItem());
+        TreeItem<MainTreeItem> selectedItem = getSelectionModel().getSelectedItem();
+        return selectedItem != null ? extractSelected(selectedItem) : new Selected();
     }
 
     private void initListeners() {
