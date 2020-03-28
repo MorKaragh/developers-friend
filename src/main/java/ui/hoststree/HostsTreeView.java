@@ -58,7 +58,7 @@ public class HostsTreeView extends VBox {
     private HBox createButtonLayout() {
         HBox buttonLayout = new HBox();
         buttonLayout.setPadding(new Insets(15, 12, 15, 12));
-        buttonLayout.setStyle(Styles.backgroundColor("#000080"));
+        buttonLayout.setStyle(Styles.backgroundColor(Styles.DEFAULT_COLOR));
         Button addButton = createAddButton();
         buttonLayout.getChildren().addAll(addButton);
         return buttonLayout;

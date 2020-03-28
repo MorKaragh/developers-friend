@@ -6,12 +6,19 @@ import model.Host;
 import model.UserOnHost;
 import ui.commandspanel.CommandsView;
 import ui.hoststree.HostsTreeView;
+import ui.terminal.TerminalView;
 
 public class MainView extends BorderPane {
 
+    private final HostsTreeView tree;
+    private final CommandsView commandsView;
+    private final TerminalView terminalView;
+
     public MainView(ApplicationEngine engine) {
-        HostsTreeView tree = new HostsTreeView();
-        CommandsView commandsView = new CommandsView();
+        tree = new HostsTreeView();
+        commandsView = new CommandsView();
+        terminalView = new TerminalView();
+
         tree.setListener(new HostsTreeView.Listener() {
             @Override
             public void saveHost(Host host) {
@@ -27,5 +34,6 @@ public class MainView extends BorderPane {
         });
         setLeft(tree);
         setRight(commandsView);
+        setCenter(terminalView);
     }
 }
