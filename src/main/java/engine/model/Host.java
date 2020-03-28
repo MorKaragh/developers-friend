@@ -1,4 +1,4 @@
-package model;
+package engine.model;
 
 import org.apache.commons.lang3.SerializationUtils;
 
@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Host implements MainTreeItem, Serializable {
+public class Host implements Serializable {
 
     private String hostname;
     private List<UserOnHost> userOnHosts;

@@ -1,5 +1,7 @@
-package model;
+package engine.state;
 
+import engine.model.Host;
+import engine.model.UserOnHost;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;

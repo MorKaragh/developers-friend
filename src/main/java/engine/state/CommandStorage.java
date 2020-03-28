@@ -1,4 +1,6 @@
-package model;
+package engine.state;
+
+import engine.model.Command;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package engine.dao;
 
-import model.SshProperties;
+import engine.state.SshProperties;
 
 public class SshPropertiesDao {
     public SshProperties loadProperties() {

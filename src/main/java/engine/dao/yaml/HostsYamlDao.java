@@ -1,13 +1,15 @@
-package engine.dao;
+package engine.dao.yaml;
 
 import config.ApplicationProperties;
 import config.InitializationException;
-import model.HostStorage;
+import engine.dao.DaoException;
+import engine.dao.HostsDao;
+import engine.state.HostStorage;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.introspector.BeanAccess;
-import model.Host;
+import engine.model.Host;
 
 import java.io.*;
 

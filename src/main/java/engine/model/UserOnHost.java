@@ -1,8 +1,8 @@
-package model;
+package engine.model;
 
 import java.io.Serializable;
 
-public class UserOnHost implements MainTreeItem, Serializable {
+public class UserOnHost implements Serializable {
 
     private String username;
 

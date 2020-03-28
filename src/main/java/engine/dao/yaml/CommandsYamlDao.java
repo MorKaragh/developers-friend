@@ -1,11 +1,10 @@
-package engine.dao;
+package engine.dao.yaml;
 
 import config.ApplicationProperties;
 import config.InitializationException;
-import model.Command;
-import model.CommandStorage;
-import model.Host;
-import model.HostStorage;
+import engine.dao.CommandsDao;
+import engine.model.Command;
+import engine.state.CommandStorage;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -15,10 +14,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 
-public class CommandsYamlDao {
+public class CommandsYamlDao implements CommandsDao {
 
+    @Override
     public CommandStorage loadCommands() {
         Constructor constructor = new Constructor(CommandStorage.class);
         TypeDescription definition = new TypeDescription(CommandStorage.class);
@@ -35,6 +34,7 @@ public class CommandsYamlDao {
         }
     }
 
+    @Override
     public void saveCommands(CommandStorage storage) {
 
     }

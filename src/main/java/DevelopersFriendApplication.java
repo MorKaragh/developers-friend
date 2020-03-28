@@ -18,7 +18,9 @@ public class DevelopersFriendApplication extends Application {
     }
 
     public void start(Stage stage) {
-        Scene scene = new Scene(new MainView(new ApplicationEngine()), ApplicationProperties.getDouble("screen.width"), ApplicationProperties.getDouble("screen.height"));
+        ApplicationEngine engine = new ApplicationEngine();
+        Scene scene = new Scene(new MainView(engine), ApplicationProperties.getDouble("screen.width"), ApplicationProperties.getDouble("screen.height"));
+        engine.initState();
         stage.setScene(scene);
         FxUtils.setStageLogo(stage);
         stage.setTitle("Developer's friend");

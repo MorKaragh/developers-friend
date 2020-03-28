@@ -1,8 +1,7 @@
 package ui.hoststree;
 
 import config.ApplicationProperties;
-import config.HostsConfiguration;
-import engine.dao.HostsYamlDao;
+import engine.dao.yaml.HostsYamlDao;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -12,8 +11,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import model.Host;
-import model.UserOnHost;
+import engine.model.Host;
+import engine.state.HostStorage;
+import engine.model.UserOnHost;
 import ui.dialogs.AddHostDialog;
 import ui.utils.Styles;
 
@@ -98,8 +98,8 @@ public class HostsTreeView extends VBox {
         return this;
     }
 
-    public void refresh() {
-        treeComponent.fillTree(HostsConfiguration.getCurrent().getHosts());
+    public void refresh(HostStorage hosts) {
+        treeComponent.fillTree(hosts);
     }
 
     public interface Listener {

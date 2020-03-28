@@ -1,4 +1,4 @@
-package model;
+package engine.state;
 
 public class SshProperties {
 

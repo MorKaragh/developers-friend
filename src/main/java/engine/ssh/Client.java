@@ -1,9 +1,9 @@
 package engine.ssh;
 
 import com.jcraft.jsch.*;
-import model.SshProperties;
-import model.Host;
-import model.UserOnHost;
+import engine.state.SshProperties;
+import engine.model.Host;
+import engine.model.UserOnHost;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,8 +12,7 @@ public class Client {
 
     private SshProperties sshConfig;
 
-    public Client(SshProperties sshConfig) {
-        this.sshConfig = sshConfig;
+    public Client() {
     }
 
     public String executeString(Host host, UserOnHost user, String command) {
@@ -104,4 +103,8 @@ public class Client {
         }
     }
 
+    public Client setSshConfig(SshProperties sshConfig) {
+        this.sshConfig = sshConfig;
+        return this;
+    }
 }

@@ -1,9 +1,9 @@
 package engine.ssh;
 
-import model.SshProperties;
-import model.UserOnHost;
+import engine.state.SshProperties;
+import engine.model.UserOnHost;
 import org.junit.jupiter.api.Test;
-import model.Host;
+import engine.model.Host;
 
 class ClientTest {
 

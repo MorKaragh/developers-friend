@@ -1,14 +1,17 @@
 package ui;
 
 import engine.ApplicationEngine;
+import engine.InterfaceConnector;
 import javafx.scene.layout.BorderPane;
-import model.Host;
-import model.UserOnHost;
+import engine.state.CommandStorage;
+import engine.model.Host;
+import engine.state.HostStorage;
+import engine.model.UserOnHost;
 import ui.commandspanel.CommandsView;
 import ui.hoststree.HostsTreeView;
 import ui.terminal.TerminalView;
 
-public class MainView extends BorderPane {
+public class MainView extends BorderPane implements InterfaceConnector {
 
     private final HostsTreeView tree;
     private final CommandsView commandsView;
@@ -23,17 +26,36 @@ public class MainView extends BorderPane {
             @Override
             public void saveHost(Host host) {
                 engine.saveHost(host);
-                tree.refresh();
             }
-
             @Override
             public void onSelect(Host host, UserOnHost userOnHost) {
-                if (host != null) {System.out.println(host.toString());}
-                if (userOnHost != null) {System.out.println(userOnHost.toString());}
+                engine.setSelectedHostAndUser(host, userOnHost);
             }
         });
         setLeft(tree);
         setRight(commandsView);
         setCenter(terminalView);
+        engine.registerInterface(this);
     }
+
+    @Override
+    public void refreshAvailableHosts(HostStorage storage) {
+        tree.refresh(storage);
+    }
+
+    @Override
+    public void displayCommandResult(String result) {
+
+    }
+
+    @Override
+    public void refreshAvailableCommands(CommandStorage commandStorage) {
+
+    }
+
+    @Override
+    public void setSelectedHost(Host host) {
+
+    }
+
 }

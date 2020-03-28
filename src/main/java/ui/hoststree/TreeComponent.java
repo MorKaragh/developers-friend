@@ -1,15 +1,14 @@
 package ui.hoststree;
 
-import model.HostStorage;
+import engine.state.HostStorage;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import model.MainTreeItem;
-import model.Host;
-import model.UserOnHost;
+import engine.model.Host;
+import engine.model.UserOnHost;
 
-public class TreeComponent extends TreeView<MainTreeItem> {
+public class TreeComponent extends TreeView<Object> {
 
     private Listener listener;
 
@@ -19,7 +18,7 @@ public class TreeComponent extends TreeView<MainTreeItem> {
     }
 
     public Selected getSelected() {
-        TreeItem<MainTreeItem> selectedItem = getSelectionModel().getSelectedItem();
+        TreeItem<Object> selectedItem = getSelectionModel().getSelectedItem();
         return selectedItem != null ? extractSelected(selectedItem) : new Selected();
     }
 
@@ -35,7 +34,7 @@ public class TreeComponent extends TreeView<MainTreeItem> {
         });
     }
 
-    private Selected extractSelected(TreeItem<MainTreeItem> treeItem) {
+    private Selected extractSelected(TreeItem<Object> treeItem) {
         Selected selected = new Selected();
         if (treeItem.getValue() instanceof UserOnHost) {
             selected.userOnHost = (UserOnHost) treeItem.getValue();
@@ -52,23 +51,23 @@ public class TreeComponent extends TreeView<MainTreeItem> {
     }
 
     void fillTree(HostStorage hostStorage) {
-        TreeItem<MainTreeItem> rootItem = getItem(new Host());
+        TreeItem<Object> rootItem = getItem(new Host());
         for (Host host : hostStorage.getHosts()) {
-            TreeItem<MainTreeItem> hostTreeItem = getItem(host);
+            TreeItem<Object> hostTreeItem = getItem(host);
             rootItem.getChildren().add(hostTreeItem);
             for (UserOnHost user : host.getUserOnHosts()) {
-                TreeItem<MainTreeItem> userItem = getItem(user);
+                TreeItem<Object> userItem = getItem(user);
                 hostTreeItem.getChildren().add(userItem);
             }
         }
         setRoot(rootItem);
     }
 
-    private TreeItem<MainTreeItem> getItem(MainTreeItem item) {
+    private TreeItem<Object> getItem(Object item) {
         return new TreeItem<>(item);
     }
 
-    private TreeComponent setTreeLitener(ChangeListener<TreeItem<MainTreeItem>> listener) {
+    private TreeComponent setTreeLitener(ChangeListener<TreeItem<Object>> listener) {
         getSelectionModel().selectedItemProperty().addListener(listener);
         return this;
     }

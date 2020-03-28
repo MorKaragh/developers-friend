@@ -1,8 +1,7 @@
 package ui.commandspanel;
 
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import model.Command;
+import engine.model.Command;
 import ui.utils.Styles;
 
 public class RunCommandButton extends Button {

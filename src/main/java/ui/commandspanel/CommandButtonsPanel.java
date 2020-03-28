@@ -1,11 +1,9 @@
 package ui.commandspanel;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import model.Command;
+import engine.model.Command;
 
 public class CommandButtonsPanel extends ScrollPane {
 

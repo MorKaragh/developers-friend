@@ -1,6 +1,6 @@
 package engine.dao;
 
-import model.HostStorage;
+import engine.state.HostStorage;
 
 public interface HostsDao {
     HostStorage load();

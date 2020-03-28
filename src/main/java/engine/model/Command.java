@@ -1,4 +1,4 @@
-package model;
+package engine.model;
 
 public class Command {
     private String commandText;

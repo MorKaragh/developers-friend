@@ -1,9 +1,10 @@
 package engine.dao;
 
-import model.HostStorage;
+import engine.dao.yaml.HostsYamlDao;
+import engine.state.HostStorage;
 import org.junit.jupiter.api.Test;
-import model.Host;
-import model.UserOnHost;
+import engine.model.Host;
+import engine.model.UserOnHost;
 
 import static org.junit.jupiter.api.Assertions.*;
 
