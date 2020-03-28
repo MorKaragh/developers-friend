@@ -1,8 +1,9 @@
 package engine.model;
 
 public class Command {
-    private String commandText;
+    private String name;
     private String host;
+    private String commandText;
 
     public boolean isForEveryHost(){
         return host == null;
@@ -24,5 +25,13 @@ public class Command {
     public Command setHost(String host) {
         this.host = host;
         return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

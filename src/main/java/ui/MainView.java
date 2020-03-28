@@ -2,24 +2,24 @@ package ui;
 
 import engine.ApplicationEngine;
 import engine.InterfaceConnector;
-import javafx.scene.layout.BorderPane;
-import engine.state.CommandStorage;
 import engine.model.Host;
+import engine.state.CommandStorage;
 import engine.state.HostStorage;
-import engine.model.UserOnHost;
-import ui.commandspanel.CommandsView;
-import ui.hoststree.HostsTreeView;
+import javafx.scene.layout.BorderPane;
+import ui.commandpanel.CommandPanelView;
 import ui.terminal.TerminalView;
+import ui.tree.HostsTreeView;
+import ui.model.UserHostPair;
 
 public class MainView extends BorderPane implements InterfaceConnector {
 
     private final HostsTreeView tree;
-    private final CommandsView commandsView;
+    private final CommandPanelView commandPanelView;
     private final TerminalView terminalView;
 
     public MainView(ApplicationEngine engine) {
         tree = new HostsTreeView();
-        commandsView = new CommandsView();
+        commandPanelView = new CommandPanelView();
         terminalView = new TerminalView();
 
         tree.setListener(new HostsTreeView.Listener() {
@@ -27,13 +27,14 @@ public class MainView extends BorderPane implements InterfaceConnector {
             public void saveHost(Host host) {
                 engine.saveHost(host);
             }
+
             @Override
-            public void onSelect(Host host, UserOnHost userOnHost) {
-                engine.setSelectedHostAndUser(host, userOnHost);
+            public void onSelect(UserHostPair userHostPair) {
+                engine.setSelectedHostAndUser(userHostPair.getHost(), userHostPair.getUserOnHost());
             }
         });
         setLeft(tree);
-        setRight(commandsView);
+        setRight(commandPanelView);
         setCenter(terminalView);
         engine.registerInterface(this);
     }

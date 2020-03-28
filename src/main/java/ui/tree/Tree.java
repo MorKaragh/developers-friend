@@ -1,4 +1,4 @@
-package ui.hoststree;
+package ui.tree;
 
 import engine.state.HostStorage;
 import javafx.beans.value.ChangeListener;
@@ -7,19 +7,20 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import engine.model.Host;
 import engine.model.UserOnHost;
+import ui.model.UserHostPair;
 
-public class TreeComponent extends TreeView<Object> {
+class Tree extends TreeView<Object> {
 
     private Listener listener;
 
-    public TreeComponent(HostStorage hostStorage) {
-        buildTree(hostStorage);
+    public Tree() {
+        buildTree();
         initListeners();
     }
 
-    public Selected getSelected() {
+    public UserHostPair getValue() {
         TreeItem<Object> selectedItem = getSelectionModel().getSelectedItem();
-        return selectedItem != null ? extractSelected(selectedItem) : new Selected();
+        return selectedItem != null ? extractSelected(selectedItem) : new UserHostPair();
     }
 
     private void initListeners() {
@@ -27,26 +28,25 @@ public class TreeComponent extends TreeView<Object> {
             if (treeItem == null || treeItem == getRoot()) {
                 return;
             }
-            Selected selected = extractSelected(treeItem);
+            UserHostPair selected = extractSelected(treeItem);
             if (listener != null) {
                 listener.onSelect(selected);
             }
         });
     }
 
-    private Selected extractSelected(TreeItem<Object> treeItem) {
-        Selected selected = new Selected();
+    private UserHostPair extractSelected(TreeItem<Object> treeItem) {
+        UserHostPair selected = new UserHostPair();
         if (treeItem.getValue() instanceof UserOnHost) {
-            selected.userOnHost = (UserOnHost) treeItem.getValue();
-            selected.host = (Host) treeItem.getParent().getValue();
+            selected.setUserOnHost((UserOnHost) treeItem.getValue());
+            selected.setHost((Host) treeItem.getParent().getValue());
         } else if (treeItem.getValue() instanceof Host){
-            selected.host = (Host) treeItem.getValue();
+            selected.setHost((Host) treeItem.getValue());
         }
         return selected;
     }
 
-    private void buildTree(HostStorage hostStorage) {
-        fillTree(hostStorage);
+    private void buildTree() {
         getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
@@ -67,41 +67,18 @@ public class TreeComponent extends TreeView<Object> {
         return new TreeItem<>(item);
     }
 
-    private TreeComponent setTreeLitener(ChangeListener<TreeItem<Object>> listener) {
+    private Tree setTreeLitener(ChangeListener<TreeItem<Object>> listener) {
         getSelectionModel().selectedItemProperty().addListener(listener);
         return this;
     }
 
-    public TreeComponent setListener(Listener listener) {
+    public Tree setListener(Listener listener) {
         this.listener = listener;
         return this;
     }
 
     public interface Listener {
-        void onSelect(Selected selected);
-    }
-
-    static class Selected {
-        private Host host;
-        private UserOnHost userOnHost;
-
-        public Host getHost() {
-            return host;
-        }
-
-        public Selected setHost(Host host) {
-            this.host = host;
-            return this;
-        }
-
-        public UserOnHost getUserOnHost() {
-            return userOnHost;
-        }
-
-        public Selected setUserOnHost(UserOnHost userOnHost) {
-            this.userOnHost = userOnHost;
-            return this;
-        }
+        void onSelect(UserHostPair selected);
     }
 
 }
