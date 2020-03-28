@@ -2,7 +2,7 @@ package engine.dao;
 
 import config.ApplicationProperties;
 import config.InitializationException;
-import model.HostsList;
+import model.HostStorage;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -11,29 +11,31 @@ import model.Host;
 
 import java.io.*;
 
-public class HostsYamlDao {
+public class HostsYamlDao implements HostsDao {
 
-    public HostsList loadHostsConfig() {
-        Constructor constructor = new Constructor(HostsList.class);
-        TypeDescription definition = new TypeDescription(HostsList.class);
+    @Override
+    public HostStorage load() {
+        Constructor constructor = new Constructor(HostStorage.class);
+        TypeDescription definition = new TypeDescription(HostStorage.class);
         definition.addPropertyParameters("hosts", Host.class);
         constructor.addTypeDescription(definition);
         Yaml yaml = new Yaml(constructor);
         yaml.setBeanAccess(BeanAccess.FIELD);
         try {
-            HostsList load = yaml.load(new FileReader(ApplicationProperties.get("config.hosts.file")));
-            return load != null ? load : new HostsList();
+            HostStorage load = yaml.load(new FileReader(ApplicationProperties.get("config.hosts.file")));
+            return load != null ? load : new HostStorage();
         } catch (FileNotFoundException e) {
             initStorageFile();
-            return new HostsList();
+            return new HostStorage();
         }
     }
 
-    public void saveLocalHostConfig(HostsList hostsList) {
+    @Override
+    public void save(HostStorage hostStorage) {
         Yaml yaml = new Yaml();
         try (FileWriter fileWriter = new FileWriter(ApplicationProperties.get("config.hosts.file"))){
             yaml.setBeanAccess(BeanAccess.FIELD);
-            String dump = yaml.dumpAsMap(hostsList);
+            String dump = yaml.dumpAsMap(hostStorage);
             fileWriter.write(dump);
         } catch (IOException e) {
             throw new DaoException(e);

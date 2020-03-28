@@ -1,4 +1,4 @@
-package ui.tree;
+package ui.hoststree;
 
 import config.ApplicationProperties;
 import config.HostsConfiguration;
@@ -17,20 +17,20 @@ import model.UserOnHost;
 import ui.dialogs.AddHostDialog;
 import ui.utils.Styles;
 
-public class MainTreeView extends VBox {
+public class HostsTreeView extends VBox {
 
     private final HBox buttonLayout;
     private final TreeComponent treeComponent;
     private Listener listener;
 
-    public MainTreeView() {
+    public HostsTreeView() {
         treeComponent = createTree();
         buttonLayout = createButtonLayout();
         buildLayout();
     }
 
     private TreeComponent createTree() {
-        TreeComponent tree = new TreeComponent(new HostsYamlDao().loadHostsConfig());
+        TreeComponent tree = new TreeComponent(new HostsYamlDao().load());
         tree.setListener(selected -> {
             if (listener != null) {
                 listener.onSelect(selected.getHost(), selected.getUserOnHost());
@@ -93,7 +93,7 @@ public class MainTreeView extends VBox {
         return addButton;
     }
 
-    public MainTreeView setListener(Listener listener) {
+    public HostsTreeView setListener(Listener listener) {
         this.listener = listener;
         return this;
     }

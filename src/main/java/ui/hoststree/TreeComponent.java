@@ -1,6 +1,6 @@
-package ui.tree;
+package ui.hoststree;
 
-import model.HostsList;
+import model.HostStorage;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
@@ -13,8 +13,8 @@ public class TreeComponent extends TreeView<MainTreeItem> {
 
     private Listener listener;
 
-    public TreeComponent(HostsList hostsList) {
-        buildTree(hostsList);
+    public TreeComponent(HostStorage hostStorage) {
+        buildTree(hostStorage);
         initListeners();
     }
 
@@ -46,14 +46,14 @@ public class TreeComponent extends TreeView<MainTreeItem> {
         return selected;
     }
 
-    private void buildTree(HostsList hostsList) {
-        fillTree(hostsList);
+    private void buildTree(HostStorage hostStorage) {
+        fillTree(hostStorage);
         getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
-    void fillTree(HostsList hostsList) {
+    void fillTree(HostStorage hostStorage) {
         TreeItem<MainTreeItem> rootItem = getItem(new Host());
-        for (Host host : hostsList.getHosts()) {
+        for (Host host : hostStorage.getHosts()) {
             TreeItem<MainTreeItem> hostTreeItem = getItem(host);
             rootItem.getChildren().add(hostTreeItem);
             for (UserOnHost user : host.getUserOnHosts()) {

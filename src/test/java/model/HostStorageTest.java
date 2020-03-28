@@ -4,12 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HostsListTest {
+class HostStorageTest {
 
     @Test
     void add() {
 
-        HostsList list = new HostsList();
+        HostStorage list = new HostStorage();
 
         Host host = new Host();
         host.setHostname("hostname 1");

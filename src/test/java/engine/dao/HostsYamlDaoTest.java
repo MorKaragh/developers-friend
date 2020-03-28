@@ -1,6 +1,6 @@
 package engine.dao;
 
-import model.HostsList;
+import model.HostStorage;
 import org.junit.jupiter.api.Test;
 import model.Host;
 import model.UserOnHost;
@@ -34,14 +34,14 @@ class HostsYamlDaoTest {
         host1.getUserOnHosts().add(user3);
         host1.getUserOnHosts().add(user4);
 
-        HostsList config = new HostsList();
+        HostStorage config = new HostStorage();
         config.getHosts().add(host);
         config.getHosts().add(host1);
 
-        hostsYamlDao.saveLocalHostConfig(config);
+        hostsYamlDao.save(config);
 
         HostsYamlDao dao = new HostsYamlDao();
-        HostsList loadedConfig = dao.loadHostsConfig();
+        HostStorage loadedConfig = dao.load();
 
         assertEquals(
                 config.getHosts().size(),

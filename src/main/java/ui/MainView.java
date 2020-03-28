@@ -4,14 +4,15 @@ import engine.ApplicationEngine;
 import javafx.scene.layout.BorderPane;
 import model.Host;
 import model.UserOnHost;
-import ui.terminal.TerminalView;
-import ui.tree.MainTreeView;
+import ui.commandspanel.CommandsView;
+import ui.hoststree.HostsTreeView;
 
 public class MainView extends BorderPane {
 
     public MainView(ApplicationEngine engine) {
-        MainTreeView tree = new MainTreeView();
-        tree.setListener(new MainTreeView.Listener() {
+        HostsTreeView tree = new HostsTreeView();
+        CommandsView commandsView = new CommandsView();
+        tree.setListener(new HostsTreeView.Listener() {
             @Override
             public void saveHost(Host host) {
                 engine.saveHost(host);
@@ -25,5 +26,6 @@ public class MainView extends BorderPane {
             }
         });
         setLeft(tree);
+        setRight(commandsView);
     }
 }

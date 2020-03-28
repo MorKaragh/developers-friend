@@ -10,7 +10,6 @@ public class ApplicationProperties {
     private final Properties prop;
 
     private ApplicationProperties() {
-        System.out.println();
         prop = new Properties();
         try (FileInputStream fileInputStream = new FileInputStream(
                 Objects.requireNonNull(getClass().getClassLoader()

@@ -1,8 +1,7 @@
 package config;
 
-import engine.dao.HostsYamlDao;
 import model.Host;
-import model.HostsList;
+import model.HostStorage;
 import model.UserOnHost;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +32,7 @@ class HostsConfigurationTest {
         host1.getUserOnHosts().add(user3);
         host1.getUserOnHosts().add(user4);
 
-        HostsList config = HostsConfiguration.getCurrent().getHosts();
+        HostStorage config = HostsConfiguration.getCurrent().getHosts();
         config.getHosts().add(host);
         config.getHosts().add(host1);
 
@@ -41,7 +40,7 @@ class HostsConfigurationTest {
 
         HostsConfiguration.getCurrent().reload();
 
-        HostsList loadedConfig = HostsConfiguration.getCurrent().getHosts();
+        HostStorage loadedConfig = HostsConfiguration.getCurrent().getHosts();
 
         assertEquals(
                 config.getHosts().size(),

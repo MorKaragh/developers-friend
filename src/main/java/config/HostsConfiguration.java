@@ -1,17 +1,17 @@
 package config;
 
 import engine.dao.HostsYamlDao;
-import model.HostsList;
+import model.HostStorage;
 
 public class HostsConfiguration {
 
     private static volatile HostsConfiguration instance;
     private HostsYamlDao dao;
-    private HostsList hosts;
+    private HostStorage hosts;
 
     private HostsConfiguration(HostsYamlDao dao) {
         this.dao = dao;
-        this.hosts = dao.loadHostsConfig();
+        this.hosts = dao.load();
     }
 
     public static HostsConfiguration getCurrent() {
@@ -29,12 +29,12 @@ public class HostsConfiguration {
         }
     }
 
-    public HostsList getHosts() {
+    public HostStorage getHosts() {
         return hosts;
     }
 
     public HostsConfiguration save() {
-        dao.saveLocalHostConfig(hosts);
+        dao.save(hosts);
         return this;
     }
 }
