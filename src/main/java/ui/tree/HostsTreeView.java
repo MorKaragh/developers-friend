@@ -6,8 +6,7 @@ import engine.state.HostStorage;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import ui.model.UserHostPair;
-import ui.tree.dialogs.HostSaveDialog;
+import ui.dialogs.hostsave.HostSaveDialog;
 
 public class HostsTreeView extends VBox {
 
@@ -26,7 +25,7 @@ public class HostsTreeView extends VBox {
         buttonLayout.getAddButton().setOnAction(actionEvent -> {
             new HostSaveDialog(hostPair -> {
                 if (listener != null) {
-                    listener.saveHost(hostPair.asHost());
+                    listener.saveHost(hostPair);
                 }
             }).openDialog(tree.getValue());
         });
@@ -65,6 +64,6 @@ public class HostsTreeView extends VBox {
 
     public interface Listener {
         void saveHost(Host host);
-        void onSelect(UserHostPair userHostPair);
+        void onSelect(Host userHostPair);
     }
 }

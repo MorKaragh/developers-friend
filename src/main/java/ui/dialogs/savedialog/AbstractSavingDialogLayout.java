@@ -1,4 +1,4 @@
-package ui.abstractions.savedialog;
+package ui.dialogs.savedialog;
 
 import javafx.scene.layout.VBox;
 import ui.abstractions.HasData;

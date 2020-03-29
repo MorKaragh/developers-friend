@@ -1,12 +1,8 @@
 package ui.terminal;
 
-import config.ApplicationProperties;
-import javafx.scene.Group;
+import config.InitializationException;
 import javafx.scene.control.TextArea;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,17 +18,10 @@ public class TerminalView extends TextArea {
                 .getResource("UbuntuMono-R.ttf")).openStream() ){
             setFont(Font.loadFont(inputStream, 14));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new InitializationException("cannot find font for terminal", e);
         }
         setTestText();
     }
-
-    public void print(String toPrint) {
-        Text text = new Text(toPrint);
-        text.setFill(Color.WHITE);
-        getChildren().add(text);
-    }
-
 
     private void setTestText() {
         setText("total 6024\n" +

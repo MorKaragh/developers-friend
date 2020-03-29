@@ -46,9 +46,17 @@ public class Host implements Serializable {
     @Override
     public String toString() {
         if (hostname != null) {
+            String result = hostname;
+            if (hasOnlyOneUser()){
+                result += "@" + userOnHosts.get(0).toString();
+            }
             return hostname;
         }
         return "hosts";
+    }
+
+    public boolean hasOnlyOneUser() {
+        return userOnHosts != null && userOnHosts.size() == 1;
     }
 
     public Host clone() {

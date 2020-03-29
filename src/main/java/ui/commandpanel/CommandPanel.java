@@ -7,14 +7,14 @@ import javafx.scene.layout.VBox;
 
 import java.util.List;
 
-class CommandButtonsPanel extends ScrollPane {
+class CommandPanel extends ScrollPane {
 
     public static final double MAX_WIDTH = 170D;
     public static final double MIN_WIDTH = 170D;
     private VBox mainLayout;
     private Listener listener;
 
-    public CommandButtonsPanel() {
+    public CommandPanel() {
         mainLayout = new VBox();
         mainLayout.setSpacing(5D);
         mainLayout.setPadding(new Insets(5, 0, 5, 0));

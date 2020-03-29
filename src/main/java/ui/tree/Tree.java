@@ -1,13 +1,13 @@
 package ui.tree;
 
+import engine.model.Host;
+import engine.model.UserOnHost;
 import engine.state.HostStorage;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import engine.model.Host;
-import engine.model.UserOnHost;
-import ui.model.UserHostPair;
+import org.apache.commons.lang3.SerializationUtils;
 
 class Tree extends TreeView<Object> {
 
@@ -18,9 +18,9 @@ class Tree extends TreeView<Object> {
         initListeners();
     }
 
-    public UserHostPair getValue() {
+    public Host getValue() {
         TreeItem<Object> selectedItem = getSelectionModel().getSelectedItem();
-        return selectedItem != null ? extractSelected(selectedItem) : new UserHostPair();
+        return selectedItem != null ? extractSelected(selectedItem) : new Host();
     }
 
     private void initListeners() {
@@ -28,20 +28,22 @@ class Tree extends TreeView<Object> {
             if (treeItem == null || treeItem == getRoot()) {
                 return;
             }
-            UserHostPair selected = extractSelected(treeItem);
+            Host selected = extractSelected(treeItem);
             if (listener != null) {
                 listener.onSelect(selected);
             }
         });
     }
 
-    private UserHostPair extractSelected(TreeItem<Object> treeItem) {
-        UserHostPair selected = new UserHostPair();
+    private Host extractSelected(TreeItem<Object> treeItem) {
+        Host selected = new Host();
         if (treeItem.getValue() instanceof UserOnHost) {
-            selected.setUserOnHost((UserOnHost) treeItem.getValue());
-            selected.setHost((Host) treeItem.getParent().getValue());
+            selected = SerializationUtils.clone((Host) treeItem.getParent().getValue());
+            selected.getUserOnHosts().clear();
+            UserOnHost value = (UserOnHost) treeItem.getValue();
+            selected.getUserOnHosts().add(value);
         } else if (treeItem.getValue() instanceof Host){
-            selected.setHost((Host) treeItem.getValue());
+            selected = SerializationUtils.clone((Host) treeItem.getValue());
         }
         return selected;
     }
@@ -78,7 +80,7 @@ class Tree extends TreeView<Object> {
     }
 
     public interface Listener {
-        void onSelect(UserHostPair selected);
+        void onSelect(Host selected);
     }
 
 }

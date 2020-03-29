@@ -1,14 +1,12 @@
 package engine.state;
 
 import engine.model.Host;
-import engine.model.UserOnHost;
 
 public class ApplicationState {
 
     private HostStorage hostStorage;
     private CommandStorage commandStorage;
     private Host selectedHost;
-    private UserOnHost selectedUserOnHost;
 
     public HostStorage getHostStorage() {
         return hostStorage;
@@ -37,11 +35,4 @@ public class ApplicationState {
         return this;
     }
 
-    public void setSelectedUserOnHost(UserOnHost selectedUserOnHost) {
-        this.selectedUserOnHost = selectedUserOnHost;
-    }
-
-    public UserOnHost getSelectedUserOnHost() {
-        return selectedUserOnHost;
-    }
 }

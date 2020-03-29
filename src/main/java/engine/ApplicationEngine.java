@@ -1,13 +1,12 @@
 package engine;
 
-import engine.dao.yaml.CommandsYamlDao;
 import engine.dao.HostsDao;
+import engine.dao.yaml.CommandsYamlDao;
 import engine.dao.yaml.HostsYamlDao;
-import engine.ssh.Client;
-import engine.state.ApplicationState;
 import engine.model.Command;
 import engine.model.Host;
-import engine.model.UserOnHost;
+import engine.ssh.Client;
+import engine.state.ApplicationState;
 
 public class ApplicationEngine {
 
@@ -37,9 +36,8 @@ public class ApplicationEngine {
         refreshAvailableHosts();
     }
 
-    public void setSelectedHostAndUser(Host host, UserOnHost userOnHost) {
+    public void setSelectedHostAndUser(Host host) {
         state.setSelectedHost(host);
-        state.setSelectedUserOnHost(userOnHost);
         if (interfaceConnector != null) {
             interfaceConnector.setSelectedHost(host);
         }
@@ -65,4 +63,7 @@ public class ApplicationEngine {
 
     }
 
+    public Host getSelectedHost() {
+        return state.getSelectedHost();
+    }
 }

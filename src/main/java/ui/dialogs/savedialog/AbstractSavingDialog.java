@@ -1,4 +1,4 @@
-package ui.abstractions.savedialog;
+package ui.dialogs.savedialog;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,20 +21,20 @@ public abstract class AbstractSavingDialog<T> extends BorderPane {
     private Button closeButton;
     private InnerListener<T> innerListener;
 
-    public AbstractSavingDialog(AbstractSavingDialogLayout<T> layout, OnSaveAction<T> onSaveListener) {
+    public AbstractSavingDialog(AbstractSavingDialogLayout<T> layout, String headerText, OnSaveAction<T> onSaveListener) {
         this.layout = layout;
         this.onSaveListener = onSaveListener;
         saveButton = createSaveButton();
         closeButton = createCloseButton();
         HBox buttonsLayout = createButtonsLayout();
-        Label label = createHeaderLabel();
+        Label label = createHeaderLabel(headerText);
         setCenter(layout);
         setBottom(buttonsLayout);
         setTop(label);
     }
 
-    private Label createHeaderLabel() {
-        Label label = new Label("New hostname and/or username");
+    private Label createHeaderLabel(String headerText) {
+        Label label = new Label(headerText);
         label.setStyle(Styles.fontSizePt(15));
         label.setPadding(new Insets(10, 5, 20, 5));
         return label;
@@ -85,7 +85,7 @@ public abstract class AbstractSavingDialog<T> extends BorderPane {
         Button saveButton = new Button("save");
         saveButton.setTextFill(Color.BLUE);
         saveButton.setOnAction(actionEvent -> {
-            if (layout instanceof Validatable && !((Validatable) layout).validate()) {
+            if (layout instanceof Validatable && !((Validatable) layout).isValid()) {
                 return;
             };
             if (innerListener != null) {

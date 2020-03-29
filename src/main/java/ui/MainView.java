@@ -9,7 +9,6 @@ import javafx.scene.layout.BorderPane;
 import ui.commandpanel.CommandPanelView;
 import ui.terminal.TerminalView;
 import ui.tree.HostsTreeView;
-import ui.model.UserHostPair;
 
 public class MainView extends BorderPane implements InterfaceConnector {
 
@@ -19,7 +18,7 @@ public class MainView extends BorderPane implements InterfaceConnector {
 
     public MainView(ApplicationEngine engine) {
         tree = new HostsTreeView();
-        commandPanelView = new CommandPanelView();
+        commandPanelView = new CommandPanelView(engine);
         terminalView = new TerminalView();
 
         tree.setListener(new HostsTreeView.Listener() {
@@ -29,8 +28,8 @@ public class MainView extends BorderPane implements InterfaceConnector {
             }
 
             @Override
-            public void onSelect(UserHostPair userHostPair) {
-                engine.setSelectedHostAndUser(userHostPair.getHost(), userHostPair.getUserOnHost());
+            public void onSelect(Host host) {
+                engine.setSelectedHostAndUser(host);
             }
         });
         setLeft(tree);

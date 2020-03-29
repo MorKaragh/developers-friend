@@ -3,6 +3,7 @@ package engine.model;
 public class Command {
     private String name;
     private String host;
+    private String user;
     private String commandText;
 
     public boolean isForEveryHost(){
