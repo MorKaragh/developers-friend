@@ -68,6 +68,13 @@ public class ApplicationEngine {
     }
 
     public void saveCommand(Command command) {
+        Host selectedHost =  getSelectedHost();
+        if (selectedHost != null) {
+            command.setHost(selectedHost.getHostname());
+            if (selectedHost.hasOnlyOneUser()) {
+                command.setUser(selectedHost.getUserOnHosts().get(0).getUsername());
+            }
+        }
         state.getCommandStorage().add(command);
         commandDao.saveCommands(state.getCommandStorage());
         refreshAvailableCommands();

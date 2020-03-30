@@ -27,5 +27,4 @@ public class DevelopersFriendApplication extends Application {
         stage.show();
     }
 
-
 }

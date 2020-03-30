@@ -17,9 +17,8 @@ public class CommandPanelView extends VBox {
         getChildren().addAll(commandPanel, bottomButtonPanel);
         setVgrow(commandPanel, Priority.ALWAYS);
 
-        bottomButtonPanel.getAddButton().setOnAction(actionEvent -> new AddCommandDialog(engine.getSelectedHost(), command -> {
-            engine.saveCommand(command);
-        }).openDialog(new Command()));
+        bottomButtonPanel.getAddButton().setOnAction(actionEvent ->
+                new AddCommandDialog(engine.getSelectedHost(), engine::saveCommand).openDialog(new Command()));
     }
 
 

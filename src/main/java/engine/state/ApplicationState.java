@@ -1,6 +1,9 @@
 package engine.state;
 
+import engine.model.Command;
 import engine.model.Host;
+
+import java.util.List;
 
 public class ApplicationState {
 
