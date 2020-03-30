@@ -100,7 +100,7 @@ public abstract class AbstractSavingDialog<T> extends BorderPane {
     }
 
     public interface OnSaveAction<T>{
-        void onSave(T host);
+        void onSave(T objToSave);
     }
 
     private interface InnerListener<T> {

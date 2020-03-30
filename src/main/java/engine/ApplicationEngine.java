@@ -66,4 +66,10 @@ public class ApplicationEngine {
     public Host getSelectedHost() {
         return state.getSelectedHost();
     }
+
+    public void saveCommand(Command command) {
+        state.getCommandStorage().add(command);
+        commandDao.saveCommands(state.getCommandStorage());
+        refreshAvailableCommands();
+    }
 }
