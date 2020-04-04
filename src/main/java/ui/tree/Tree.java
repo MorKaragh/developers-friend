@@ -26,6 +26,7 @@ class Tree extends TreeView<Object> {
     private void initListeners() {
         setTreeLitener((observableValue, mainTreeItemTreeItem, treeItem) -> {
             if (treeItem == null || treeItem == getRoot()) {
+                listener.onSelect(null);
                 return;
             }
             Host selected = extractSelected(treeItem);

@@ -20,20 +20,23 @@ import java.util.Objects;
 class AddCommandDialogLayout extends AbstractSavingDialogLayout<Command> {
 
     private final Host selectedHost;
-    private TextArea command;
+    private TextArea commandText;
     private TextField name;
     private CheckBox onlyForHost;
 
     public AddCommandDialogLayout(Host selectedHost) {
         this.selectedHost = selectedHost;
-        command = initTextArea();
+        commandText = initTextArea();
         name = new TextField();
         name.setPromptText("description");
         onlyForHost = new CheckBox(getCheckboxLabel());
         onlyForHost.setPadding(new Insets(0, 0, 0, 5D));
         HBox description = ComponentUtils.wrapTextFieldWithLabel(name, "description");
         description.setPadding(new Insets(0, 5, 0, 5));
-        getChildren().addAll(description, command, onlyForHost);
+        getChildren().addAll(description, commandText);
+        if (selectedHost != null) {
+            getChildren().addAll(onlyForHost);
+        }
         setSpacing(5D);
     }
 
@@ -52,13 +55,22 @@ class AddCommandDialogLayout extends AbstractSavingDialogLayout<Command> {
     private String getCheckboxLabel() {
         String base = "only for selected host";
         if (selectedHost != null) {
-            base += " " + selectedHost.toString();
+            base += " (" + selectedHost.toString() + ")";
         }
         return base;
     }
 
     @Override
     public Command gatherData() {
+        Command command = new Command();
+        if (selectedHost != null && onlyForHost.isSelected()) {
+            command.setHost(selectedHost.getHostname());
+            if (selectedHost.hasOnlyOneUser()) {
+                command.setUser(selectedHost.getUserOnHosts().get(0).getUsername());
+            }
+        }
+        command.setCommandText(commandText.getText());
+        command.setName(name.getText());
         return null;
     }
 
@@ -69,6 +81,6 @@ class AddCommandDialogLayout extends AbstractSavingDialogLayout<Command> {
 
     @Override
     public boolean isValid() {
-        return false;
+        return true;
     }
 }

@@ -50,7 +50,7 @@ public class Host implements Serializable {
             if (hasOnlyOneUser()){
                 result += "@" + userOnHosts.get(0).toString();
             }
-            return hostname;
+            return result;
         }
         return "hosts";
     }
