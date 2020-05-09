@@ -9,9 +9,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import org.apache.commons.lang3.StringUtils;
 import ui.dialogs.savedialog.AbstractSavingDialogLayout;
 import ui.terminal.TerminalView;
 import ui.utils.ComponentUtils;
+import ui.utils.Styles;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -71,7 +73,7 @@ class AddCommandDialogLayout extends AbstractSavingDialogLayout<Command> {
         }
         command.setCommandText(commandText.getText());
         command.setName(name.getText());
-        return null;
+        return command;
     }
 
     @Override
@@ -81,6 +83,12 @@ class AddCommandDialogLayout extends AbstractSavingDialogLayout<Command> {
 
     @Override
     public boolean isValid() {
-        return true;
+        if (StringUtils.isBlank(commandText.getText())) {
+            commandText.setStyle(Styles.TERMINAL_INVALID);
+        }
+        if (StringUtils.isBlank(name.getText())) {
+            name.setStyle(Styles.textFieldBorder("red"));
+        }
+        return StringUtils.isNoneBlank(commandText.getText(),name.getText());
     }
 }

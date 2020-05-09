@@ -6,11 +6,17 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import ui.dialogs.commandsave.AddCommandDialog;
 
+import java.util.List;
+
 public class CommandPanelView extends VBox {
 
     private final ApplicationEngine engine;
     CommandPanel commandPanel = new CommandPanel();
     BottomButtonPanel bottomButtonPanel = new BottomButtonPanel();
+
+    public void mountCommands(List<Command> param) {
+        commandPanel.mountData(param);
+    }
 
     public CommandPanelView(ApplicationEngine engine) {
         this.engine = engine;

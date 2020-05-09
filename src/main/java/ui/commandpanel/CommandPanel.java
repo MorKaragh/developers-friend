@@ -24,6 +24,7 @@ class CommandPanel extends ScrollPane {
     }
 
     public void mountData(List<Command> commands) {
+        mainLayout.getChildren().clear();
         commands.forEach(command -> {
             RunCommandButton button = new RunCommandButton(command.getName(), new Command());
             button.setOnAction(actionEvent -> {

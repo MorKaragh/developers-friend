@@ -40,6 +40,7 @@ public class ApplicationEngine {
         state.setSelectedHost(host);
         if (interfaceConnector != null) {
             interfaceConnector.setSelectedHost(host);
+            interfaceConnector.setAvailableCommands(state.getCommandStorage().getCommandsByHost(host));
         }
     }
 

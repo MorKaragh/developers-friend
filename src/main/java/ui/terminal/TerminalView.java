@@ -3,6 +3,7 @@ package ui.terminal;
 import config.InitializationException;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;
+import ui.utils.Styles;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +13,7 @@ import java.util.Objects;
 public class TerminalView extends TextArea {
 
     public TerminalView() {
-        setStyle("-fx-control-inner-background:#000000; -fx-text-fill: #ffffff;");
+        setStyle(Styles.TERMINAL);
         setMinWidth(640D);
         try (InputStream inputStream = Objects.requireNonNull(TerminalView.class.getClassLoader()
                 .getResource("UbuntuMono-R.ttf")).openStream() ){

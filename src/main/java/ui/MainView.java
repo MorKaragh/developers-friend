@@ -2,6 +2,7 @@ package ui;
 
 import engine.ApplicationEngine;
 import engine.InterfaceConnector;
+import engine.model.Command;
 import engine.model.Host;
 import engine.state.CommandStorage;
 import engine.state.HostStorage;
@@ -9,6 +10,8 @@ import javafx.scene.layout.BorderPane;
 import ui.commandpanel.CommandPanelView;
 import ui.terminal.TerminalView;
 import ui.tree.HostsTreeView;
+
+import java.util.List;
 
 public class MainView extends BorderPane implements InterfaceConnector {
 
@@ -56,6 +59,11 @@ public class MainView extends BorderPane implements InterfaceConnector {
     @Override
     public void setSelectedHost(Host host) {
 
+    }
+
+    @Override
+    public void setAvailableCommands(List<Command> commandsByHost) {
+        commandPanelView.mountCommands(commandsByHost);
     }
 
 }
